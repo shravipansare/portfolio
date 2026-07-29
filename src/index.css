@@ -275,7 +275,7 @@ nav {
 }
 
 .hero-title {
-  font-size: 5.5rem;
+  font-size: 4.5rem;
   font-weight: 800;
   line-height: 1.1;
   margin-bottom: 1rem;
@@ -372,7 +372,7 @@ footer {
 
 /* Responsive */
 @media (max-width: 768px) {
-  .hero-title { font-size: 3.5rem; }
+  .hero-title { font-size: 2.8rem; }
   .hero-subtitle { font-size: 2.5rem; }
   .nav-links { display: none; }
 }
