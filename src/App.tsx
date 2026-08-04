@@ -68,6 +68,20 @@ function App() {
                 When I'm not training models or building APIs, I'm constantly learning new frameworks and pushing the boundaries of what's possible on the web.
               </p>
             </div>
+            
+            <div className="glass-panel fade-up delay-1">
+              <h3>Education</h3>
+              <div style={{ marginTop: '1.5rem' }}>
+                <h4 style={{ fontSize: '1.1rem', marginBottom: '0.25rem' }}>B.E. in AI & Data Science</h4>
+                <p style={{ color: 'var(--text-secondary)', fontWeight: 500, fontSize: '0.9rem' }}>Expected Graduation: 2026</p>
+                <p style={{ marginTop: '0.5rem', fontWeight: 600, color: 'var(--accent-color)' }}>CGPA: 9.05</p>
+              </div>
+              <div style={{ marginTop: '1.5rem', paddingTop: '1.5rem', borderTop: '1px solid var(--glass-border)' }}>
+                <h4 style={{ fontSize: '1.1rem', marginBottom: '0.25rem' }}>High School</h4>
+                <p style={{ color: 'var(--text-secondary)', fontWeight: 500, fontSize: '0.9rem' }}>Science Stream</p>
+                <p style={{ marginTop: '0.5rem', fontWeight: 600, color: 'var(--accent-color)' }}>Percentage: 92%</p>
+              </div>
+            </div>
           </div>
         </section>
 
