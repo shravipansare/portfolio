@@ -167,24 +167,30 @@ function App() {
           <h2 className="fade-up" style={{ textAlign: 'center' }}>Certifications & Awards</h2>
           
           <div className="grid-3" style={{ marginTop: '3rem' }}>
-            <div className="glass-panel fade-up">
+            <div className="glass-panel glass-panel-img fade-up">
+              <img src="/certs/powerbi.png" alt="Power BI Certificate" className="cert-image" />
+              <div className="cert-content">
+                <h3 style={{ fontSize: '1.25rem' }}>Data to Dashboard in Power BI</h3>
+                <p style={{ marginTop: '0.5rem', fontSize: '0.95rem' }}>
+                  ISO 9001:2015 Certified program. Completed comprehensive training in data visualization and reporting. (June 2026)
+                </p>
+              </div>
+            </div>
+
+            <div className="glass-panel glass-panel-img fade-up delay-1">
+              <img src="/certs/aws.png" alt="AWS Academy Certificate" className="cert-image" />
+              <div className="cert-content">
+                <h3 style={{ fontSize: '1.25rem' }}>AWS Academy Graduate</h3>
+                <p style={{ marginTop: '0.5rem', fontSize: '0.95rem' }}>
+                  AWS Academy Cloud Foundations. Certified in cloud concepts, security, architecture, and pricing. (June 2026)
+                </p>
+              </div>
+            </div>
+
+            <div className="glass-panel fade-up delay-2" style={{ display: 'flex', flexDirection: 'column', justifyContent: 'center' }}>
               <h3 style={{ fontSize: '1.25rem' }}>Third Position - ICRTAIDS 2025</h3>
               <p style={{ marginTop: '0.5rem', fontSize: '0.95rem' }}>
-                International Conference On Recent Trends (Green Skills & AI). Awarded for exceptional research presentation.
-              </p>
-            </div>
-
-            <div className="glass-panel fade-up delay-1">
-              <h3 style={{ fontSize: '1.25rem' }}>Data to Dashboard in Power BI</h3>
-              <p style={{ marginTop: '0.5rem', fontSize: '0.95rem' }}>
-                ISO 9001:2015 Certified program. Completed comprehensive training in data visualization and reporting. (June 2026)
-              </p>
-            </div>
-
-            <div className="glass-panel fade-up delay-2">
-              <h3 style={{ fontSize: '1.25rem' }}>AWS Academy Graduate</h3>
-              <p style={{ marginTop: '0.5rem', fontSize: '0.95rem' }}>
-                AWS Academy Cloud Foundations. Certified in cloud concepts, security, architecture, and pricing. (June 2026)
+                International Conference On Recent Trends (Green Skills & AI). Awarded for exceptional research presentation and technical innovation.
               </p>
             </div>
           </div>
