@@ -58,13 +58,13 @@ function App() {
 
         {/* ABOUT & SKILLS SECTION */}
         <section id="about" className="section container">
-          <div className="grid-2">
-            <div className="glass-panel fade-up">
+          <div style={{ maxWidth: '800px', margin: '0 auto' }}>
+            <div className="glass-panel fade-up" style={{ textAlign: 'center' }}>
               <h3>About Me</h3>
-              <p style={{ marginTop: '1rem' }}>
+              <p style={{ marginTop: '1.5rem', fontSize: '1.1rem' }}>
                 I am a proactive technology student currently pursuing my B.E. in AI & Data Science (CGPA 9.05). My passion lies in bridging the gap between sophisticated machine learning models and robust web applications.
               </p>
-              <p style={{ marginTop: '1rem' }}>
+              <p style={{ marginTop: '1rem', fontSize: '1.1rem' }}>
                 When I'm not training models or building APIs, I'm constantly learning new frameworks and pushing the boundaries of what's possible on the web.
               </p>
             </div>
@@ -178,7 +178,7 @@ function App() {
             </div>
 
             {/* Project 5 */}
-            <div className="glass-panel fade-up">
+            <div className="glass-panel fade-up" style={{ gridColumn: '1 / -1' }}>
               <h3>MartechAdda CRM</h3>
               <p style={{ marginTop: '1rem', fontSize: '1rem' }}>
                 A comprehensive customer relationship management platform. As part of the core engineering team, I architected and developed the complex Proposal generation module.
@@ -187,6 +187,9 @@ function App() {
                 <span className="tag">React</span>
                 <span className="tag">Team Collaboration</span>
                 <span className="tag">CRM</span>
+              </div>
+              <div style={{ padding: '0.5rem 1rem', fontSize: '0.875rem', background: 'rgba(0,0,0,0.05)', color: 'var(--text-secondary)', display: 'inline-block', borderRadius: '999px', fontWeight: 600, border: '1px solid var(--glass-border)' }}>
+                🔒 Private Repository
               </div>
             </div>
           </div>
