@@ -306,6 +306,27 @@ nav {
   box-shadow: 0 10px 20px rgba(15, 23, 42, 0.15);
 }
 
+.btn-secondary {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.5rem;
+  padding: 1rem 2rem;
+  background: white;
+  color: var(--text-primary);
+  text-decoration: none;
+  border-radius: 999px;
+  font-weight: 600;
+  margin-top: 2rem;
+  border: 1px solid var(--glass-border);
+  box-shadow: 0 4px 12px rgba(15, 23, 42, 0.05);
+  transition: transform 0.3s, box-shadow 0.3s;
+}
+
+.btn-secondary:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 10px 20px rgba(15, 23, 42, 0.1);
+}
+
 /* Animations */
 .fade-up {
   opacity: 0;

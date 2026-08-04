@@ -25,9 +25,11 @@ function App() {
           <a href="#" className="logo" onClick={(e) => { e.preventDefault(); scrollTo('home'); }}>Shravani.</a>
           <div className="nav-links hidden md:flex">
             <button className="nav-link" onClick={() => scrollTo('about')}>About</button>
+            <button className="nav-link" onClick={() => scrollTo('skills')}>Skills</button>
             <button className="nav-link" onClick={() => scrollTo('projects')}>Projects</button>
             <button className="nav-link" onClick={() => scrollTo('experience')}>Experience</button>
             <button className="nav-link" onClick={() => scrollTo('certifications')}>Certificates</button>
+            <a href="/Shravani_Resume.pdf" target="_blank" className="btn-primary" style={{ padding: '0.5rem 1.5rem', marginTop: 0 }}>Resume</a>
           </div>
         </div>
       </nav>
@@ -42,9 +44,14 @@ function App() {
               <p style={{ maxWidth: '600px', marginBottom: '2rem' }}>
                 Hi, I'm Shravani Pansare. I specialize in Data Science, Machine Learning, and highly-performant web applications. I turn complex logic into beautiful, user-centric software.
               </p>
-              <button className="btn-primary" onClick={() => scrollTo('projects')}>
-                View My Work <ArrowRight className="w-4 h-4" />
-              </button>
+              <div style={{ display: 'flex', gap: '1rem', flexWrap: 'wrap' }}>
+                <button className="btn-primary" onClick={() => scrollTo('projects')}>
+                  View My Work <ArrowRight className="w-4 h-4" />
+                </button>
+                <a href="/Shravani_Resume.pdf" target="_blank" className="btn-secondary">
+                  Download Resume
+                </a>
+              </div>
             </div>
           </div>
         </section>
@@ -62,21 +69,42 @@ function App() {
               </p>
             </div>
 
-            <div className="grid-2 fade-up delay-1" style={{ gap: '1rem' }}>
-              <div className="glass-panel" style={{ padding: '2rem' }}>
-                <Code2 className="w-8 h-8 mb-4" style={{ color: 'var(--accent-purple)' }} />
-                <h4 style={{ marginBottom: '0.5rem' }}>Frontend</h4>
-                <p style={{ fontSize: '0.9rem' }}>React, JavaScript, TypeScript, CSS</p>
+            </div>
+          </div>
+        </section>
+
+        {/* SKILLS SECTION */}
+        <section id="skills" className="section container">
+          <h2 className="fade-up" style={{ textAlign: 'center' }}>Technical Skills</h2>
+          
+          <div className="grid-3" style={{ marginTop: '3rem' }}>
+            <div className="glass-panel fade-up">
+              <Code2 className="w-8 h-8 mb-4" style={{ color: 'var(--accent-purple)' }} />
+              <h3 style={{ marginBottom: '1rem' }}>Languages & Web</h3>
+              <div className="tags">
+                {['Python', 'Java', 'C++', 'JavaScript', 'HTML', 'CSS', 'React.js', 'Node.js'].map(skill => (
+                  <span key={skill} className="tag">{skill}</span>
+                ))}
               </div>
-              <div className="glass-panel" style={{ padding: '2rem' }}>
-                <Database className="w-8 h-8 mb-4" style={{ color: 'var(--accent-cyan)' }} />
-                <h4 style={{ marginBottom: '0.5rem' }}>Backend</h4>
-                <p style={{ fontSize: '0.9rem' }}>Node.js, Python, MongoDB, SQL</p>
+            </div>
+
+            <div className="glass-panel fade-up delay-1">
+              <Brain className="w-8 h-8 mb-4" style={{ color: 'var(--accent-pink)' }} />
+              <h3 style={{ marginBottom: '1rem' }}>Machine Learning & AI</h3>
+              <div className="tags">
+                {['OpenCV', 'YOLO', 'Face Recognition', 'Scikit-Learn', 'TensorFlow', 'Keras', 'NumPy', 'Pandas', 'Matplotlib'].map(skill => (
+                  <span key={skill} className="tag">{skill}</span>
+                ))}
               </div>
-              <div className="glass-panel" style={{ padding: '2rem', gridColumn: '1 / -1' }}>
-                <Brain className="w-8 h-8 mb-4" style={{ color: 'var(--accent-pink)' }} />
-                <h4 style={{ marginBottom: '0.5rem' }}>AI & ML</h4>
-                <p style={{ fontSize: '0.9rem' }}>TensorFlow, Scikit-Learn, OpenCV, Pandas</p>
+            </div>
+
+            <div className="glass-panel fade-up delay-2">
+              <Database className="w-8 h-8 mb-4" style={{ color: 'var(--accent-cyan)' }} />
+              <h3 style={{ marginBottom: '1rem' }}>Databases & Tools</h3>
+              <div className="tags">
+                {['MySQL', 'MongoDB', 'SQL Server', 'Git & GitHub', 'VS Code', 'Power BI', 'System Design'].map(skill => (
+                  <span key={skill} className="tag">{skill}</span>
+                ))}
               </div>
             </div>
           </div>
