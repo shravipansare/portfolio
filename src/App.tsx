@@ -150,6 +150,19 @@ function App() {
                 View Repo <ExternalLink className="w-3 h-3" />
               </a>
             </div>
+
+            {/* Project 5 */}
+            <div className="glass-panel fade-up">
+              <h3>MartechAdda CRM</h3>
+              <p style={{ marginTop: '1rem', fontSize: '1rem' }}>
+                A comprehensive customer relationship management platform. As part of the core engineering team, I architected and developed the complex Proposal generation module.
+              </p>
+              <div className="tags">
+                <span className="tag">React</span>
+                <span className="tag">Team Collaboration</span>
+                <span className="tag">CRM</span>
+              </div>
+            </div>
           </div>
         </section>
 
