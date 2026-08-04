@@ -159,6 +159,15 @@ function App() {
               <p style={{ color: 'var(--text-primary)', fontWeight: 500, marginBottom: '1rem' }}>TechnoHacks EduTech</p>
               <p>Built and trained supervised ML models (Decision Tree, SVM) on real-world datasets for classification and regression tasks.</p>
             </div>
+
+            <div className="glass-panel fade-up delay-2" style={{ marginBottom: '2rem' }}>
+              <div style={{ display: 'flex', justifyContent: 'space-between', flexWrap: 'wrap', marginBottom: '1rem' }}>
+                <h3 style={{ margin: 0 }}>Software Engineer Intern</h3>
+                <span style={{ color: 'var(--accent-pink)', fontWeight: 600 }}>Jun 2023 — Aug 2023</span>
+              </div>
+              <p style={{ color: 'var(--text-primary)', fontWeight: 500, marginBottom: '1rem' }}>OMVSAB IT SOLUTION</p>
+              <p>Developed and debugged full-stack applications. Designed and managed scalable databases with SQL Server and MongoDB, improving overall performance and reliability.</p>
+            </div>
           </div>
         </section>
 
