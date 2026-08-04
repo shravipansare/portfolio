@@ -68,8 +68,6 @@ function App() {
                 When I'm not training models or building APIs, I'm constantly learning new frameworks and pushing the boundaries of what's possible on the web.
               </p>
             </div>
-
-            </div>
           </div>
         </section>
 
