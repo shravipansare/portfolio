@@ -1,267 +1,236 @@
-import React, { useState, useRef, useEffect } from 'react';
-import type { KeyboardEvent } from 'react';
+import { useEffect, useState } from 'react';
+import { ArrowRight, ExternalLink } from 'lucide-react';
 import './index.css';
 
-interface HistoryItem {
-  cmd: string;
-  output: React.ReactNode;
-}
-
-const ASCII_LOGO = `
-  ____  _                               _ 
- / ___|| |__  _ __ __ ___   ____ _ _ __ (_)
- \\___ \\| '_ \\| '__/ _\` \\ \\ / / _\` | '_ \\| |
-  ___) | | | | | | (_| |\\ V / (_| | | | | |
- |____/|_| |_|_|  \\__,_| \\_/ \\__,_|_| |_|_|
-                                          
-`;
-
 function App() {
-  const [history, setHistory] = useState<HistoryItem[]>([]);
-  const [input, setInput] = useState('');
-  const endRef = useRef<HTMLDivElement>(null);
-  const inputRef = useRef<HTMLInputElement>(null);
+  const [scrolled, setScrolled] = useState(false);
 
-  // Focus input on any click
   useEffect(() => {
-    const handleGlobalClick = () => inputRef.current?.focus();
-    window.addEventListener('click', handleGlobalClick);
-    inputRef.current?.focus();
-    
-    // Initial welcome message
-    if (history.length === 0) {
-      handleCommand('welcome');
-    }
-    
-    return () => window.removeEventListener('click', handleGlobalClick);
+    const handleScroll = () => {
+      setScrolled(window.scrollY > 50);
+    };
+    window.addEventListener('scroll', handleScroll);
+    return () => window.removeEventListener('scroll', handleScroll);
   }, []);
 
-  // Scroll to bottom on new output
-  useEffect(() => {
-    endRef.current?.scrollIntoView({ behavior: 'smooth' });
-  }, [history]);
-
-  const handleKeyDown = (e: KeyboardEvent<HTMLInputElement>) => {
-    if (e.key === 'Enter') {
-      const cmd = input.trim();
-      setInput('');
-      if (cmd) {
-        handleCommand(cmd);
-      }
+  const scrollTo = (id: string) => {
+    const element = document.getElementById(id);
+    if (element) {
+      window.scrollTo({
+        top: element.offsetTop - 100,
+        behavior: 'smooth'
+      });
     }
-  };
-
-  const executeCmd = (cmd: string): React.ReactNode => {
-    const args = cmd.toLowerCase().split(' ').filter(Boolean);
-    const command = args[0];
-
-    switch (command) {
-      case 'help':
-        return (
-          <div style={{ paddingLeft: '1rem' }}>
-            <div className="list-item"><strong>about</strong>    - Read my bio</div>
-            <div className="list-item"><strong>skills</strong>   - List technical skills</div>
-            <div className="list-item"><strong>projects</strong> - View featured projects</div>
-            <div className="list-item"><strong>exp</strong>      - View work experience</div>
-            <div className="list-item"><strong>awards</strong>   - View certifications & awards</div>
-            <div className="list-item"><strong>contact</strong>  - Get in touch</div>
-            <div className="list-item"><strong>clear</strong>    - Clear terminal output</div>
-            <div className="list-item"><strong>whoami</strong>   - Print current user</div>
-            <br/>
-            <div><i>Tip: Try typing 'projects' to see my work!</i></div>
-          </div>
-        );
-      
-      case 'welcome':
-        return (
-          <div>
-            <pre className="ascii-art">{ASCII_LOGO}</pre>
-            <p>Welcome to ShravaniOS v2.0.26</p>
-            <p>Type <span className="text-highlight">help</span> to see available commands.</p>
-            <br />
-          </div>
-        );
-
-      case 'about':
-        return (
-          <div style={{ maxWidth: '800px' }}>
-            <p>Hello! I am <strong className="text-highlight">Shravani Pansare</strong>.</p>
-            <br/>
-            <p>I am a proactive technology student specializing in Data Science, Machine Learning, and full-stack web application development. Currently pursuing my B.E. in AI & Data Science at Ajeenkya DY Patil School of Engineering (CGPA 9.05).</p>
-            <p>I love taking complex problems and turning them into efficient, real-world systems.</p>
-          </div>
-        );
-
-      case 'skills':
-        return (
-          <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(200px, 1fr))', gap: '1rem', maxWidth: '800px' }}>
-            <div>
-              <strong className="text-info">Languages & Web:</strong>
-              <div>Python, Java, C++, JavaScript, React, Node.js</div>
-            </div>
-            <div>
-              <strong className="text-info">AI & ML:</strong>
-              <div>OpenCV, YOLO, TensorFlow, Scikit-Learn, Pandas</div>
-            </div>
-            <div>
-              <strong className="text-info">Databases:</strong>
-              <div>MongoDB, SQL Server, MySQL, Prisma ORM</div>
-            </div>
-          </div>
-        );
-
-      case 'projects':
-        return (
-          <div style={{ paddingLeft: '1rem' }}>
-            <p className="text-info mb-2">Fetching projects from database...</p>
-            <br/>
-            <div className="list-item">
-              <strong className="text-highlight">Ledgerly SaaS</strong> (2026) <br/>
-              B2B SaaS application for managing clients, generating PDF invoices, and processing online payments.<br/>
-              [React, Node.js, Prisma, MongoDB, Razorpay] <br/>
-              <a href="https://github.com/shravipansare/ledgerly" target="_blank" className="file-link">View Repo</a>
-            </div>
-            <br/>
-            <div className="list-item">
-              <strong className="text-highlight">Intelligent Classroom Surveillance</strong> (2024-25) <br/>
-              AI-powered system with face recognition, stress detection, and mobile-phone detection using YOLO & CNN.<br/>
-              <a href="https://github.com/shravipansare/intelligent-classroom" target="_blank" className="file-link">View Repo</a>
-            </div>
-            <br/>
-            <div className="list-item">
-              <strong className="text-highlight">Visage Check</strong> (2023-24) <br/>
-              Face-recognition system to automate student attendance with automated alerts for low attendance.<br/>
-              <a href="https://github.com/shravipansare/visage-check" target="_blank" className="file-link">View Repo</a>
-            </div>
-          </div>
-        );
-        
-      case 'exp':
-        return (
-          <div style={{ paddingLeft: '1rem' }}>
-            <div className="list-item">
-              <strong className="text-highlight">Product Engineer Intern</strong> @ MartechAdda (May 2026 - Present)<br/>
-              Architected "Ledgerly" B2B invoicing SaaS. Handled full stack dev, payment integration, and QA.
-            </div>
-            <br/>
-            <div className="list-item">
-              <strong className="text-highlight">Machine Learning Intern</strong> @ TechnoHacks EduTech (Dec 2023 - Jan 2024)<br/>
-              Trained supervised ML models (Decision Tree, SVM) on real datasets. Handled data preprocessing.
-            </div>
-            <br/>
-            <div className="list-item">
-              <strong className="text-highlight">Software Engineer</strong> @ OMVSAB IT SOLUTION (Jun 2023 - Aug 2023)<br/>
-              Developed applications in Java/Python. Managed databases with SQL Server & MongoDB.
-            </div>
-          </div>
-        );
-        
-      case 'awards':
-        return (
-          <div style={{ paddingLeft: '1rem' }}>
-            <div className="list-item">
-              <strong>Third Position - ICRTAIDS 2025</strong><br/>
-              International Conference On Recent Trends (Green Skills & AI)
-            </div>
-            <div className="list-item">
-              <strong>Data to Dashboard in Power BI</strong> (ISO 9001:2015)<br/>
-              June 2026
-            </div>
-            <div className="list-item">
-              <strong>AWS Academy Graduate</strong> - Cloud Foundations<br/>
-              June 2026
-            </div>
-          </div>
-        );
-
-      case 'contact':
-        return (
-          <div style={{ paddingLeft: '1rem' }}>
-            <div><strong className="text-info">Email:</strong> <a href="mailto:shravanipansare80@gmail.com" className="file-link">shravanipansare80@gmail.com</a></div>
-            <div><strong className="text-info">Phone:</strong> +91 9527359282</div>
-            <div><strong className="text-info">GitHub:</strong> <a href="https://github.com/shravipansare" target="_blank" className="file-link">github.com/shravipansare</a></div>
-            <div><strong className="text-info">LinkedIn:</strong> <a href="https://linkedin.com/in/shravani-pansare-46331830a" target="_blank" className="file-link">linkedin.com/in/shravani</a></div>
-          </div>
-        );
-
-      case 'whoami':
-        return <div>guest@shravani.dev</div>;
-
-      case 'clear':
-        setHistory([]);
-        return null;
-
-      case 'ls':
-        return <div className="text-info">about.txt  skills.json  projects/  exp.log  contact.sh</div>;
-
-      case 'cat':
-        if (args[1] === 'about.txt') return executeCmd('about');
-        if (args[1] === 'skills.json') return executeCmd('skills');
-        return <div className="error">cat: {args[1] || 'missing operand'}: No such file or directory</div>;
-
-      case 'sudo':
-        return <div className="error">shravani.dev is not in the sudoers file. This incident will be reported.</div>;
-        
-      case 'gui':
-      case 'start':
-        return <div className="error">GUI mode is currently disabled in this build. Sticking to the terminal!</div>;
-
-      default:
-        return <div className="error">Command not found: {command}. Type 'help' for available commands.</div>;
-    }
-  };
-
-  const handleCommand = (cmd: string) => {
-    if (cmd.toLowerCase() === 'clear') {
-      setHistory([]);
-      return;
-    }
-    
-    // Ignore the welcome command from showing up as user input
-    if (cmd === 'welcome') {
-      const output = executeCmd(cmd);
-      setHistory([{ cmd: '', output }]);
-      return;
-    }
-
-    const output = executeCmd(cmd);
-    setHistory(prev => [...prev, { cmd, output }]);
   };
 
   return (
-    <div className="crt">
-      <div className="terminal-container">
-        
-        {history.map((item, index) => (
-          <div key={index} className="terminal-output">
-            {item.cmd && (
-              <div className="cmd-echo">
-                <span className="prompt">guest@shravani</span>
-                <span className="path">~/portfolio</span> $ {item.cmd}
-              </div>
-            )}
-            <div>{item.output}</div>
+    <>
+      <nav style={{ background: scrolled ? 'rgba(10,10,10,0.95)' : 'transparent', borderBottom: scrolled ? '1px solid var(--border-light)' : 'none' }}>
+        <div className="container nav-content">
+          <a href="#" className="logo" onClick={(e) => { e.preventDefault(); scrollTo('home'); }}>Shravani.</a>
+          <div className="nav-links hidden md:flex">
+            <button className="nav-link" onClick={() => scrollTo('about')}>About</button>
+            <button className="nav-link" onClick={() => scrollTo('projects')}>Work</button>
+            <button className="nav-link" onClick={() => scrollTo('experience')}>Experience</button>
+            <button className="nav-link" onClick={() => scrollTo('contact')}>Contact</button>
           </div>
-        ))}
-        
-        <div className="input-line">
-          <span className="prompt">guest@shravani</span>
-          <span className="path">~/portfolio</span> $
-          <input 
-            ref={inputRef}
-            type="text" 
-            className="terminal-input ml-2" 
-            value={input}
-            onChange={(e) => setInput(e.target.value)}
-            onKeyDown={handleKeyDown}
-            autoComplete="off"
-            spellCheck="false"
-          />
         </div>
-        
-        <div ref={endRef} />
-      </div>
-    </div>
+      </nav>
+
+      <main>
+        {/* HERO SECTION */}
+        <section id="home" className="container hero">
+          <div className="fade-up">
+            <span className="hero-sub">Shravani Pansare — Portfolio</span>
+            <h1>Engineering <br/><span className="font-serif italic text-[var(--accent-gold)]">intelligent</span> solutions.</h1>
+          </div>
+          <div className="fade-up delay-1" style={{ marginTop: '3rem', maxWidth: '600px' }}>
+            <p>I am a proactive technology student specializing in Data Science, Machine Learning, and highly-performant web applications. I transform complex problems into elegant, real-world systems.</p>
+            <a href="#projects" className="link-arrow" onClick={(e) => { e.preventDefault(); scrollTo('projects'); }}>
+              View Selected Work <ArrowRight className="w-4 h-4" />
+            </a>
+          </div>
+        </section>
+
+        {/* ABOUT SECTION */}
+        <section id="about" className="section">
+          <div className="container editorial-grid">
+            <div>
+              <h2 className="section-label">01 / About</h2>
+            </div>
+            <div>
+              <div className="content-block fade-up">
+                <h3>The Intersection of Logic & Design</h3>
+                <p style={{ marginTop: '1.5rem' }}>
+                  Hello! I am Shravani Pansare. I have a strong foundation in Artificial Intelligence and Data Science, currently pursuing my Bachelor of Engineering at Ajeenkya DY Patil School of Engineering (CGPA 9.05).
+                </p>
+                <p style={{ marginTop: '1.5rem' }}>
+                  My passion lies in bridging the gap between sophisticated machine learning models and robust, user-centric web applications. I don't just write code; I architect systems that solve genuine problems while delivering a premium user experience.
+                </p>
+              </div>
+
+              <div className="content-block fade-up delay-1">
+                <h3>Technical Arsenal</h3>
+                <div style={{ display: 'flex', gap: '4rem', marginTop: '1.5rem', flexWrap: 'wrap' }}>
+                  <div>
+                    <span className="metadata">Core Stack</span>
+                    <ul style={{ listStyle: 'none', color: 'var(--text-secondary)' }}>
+                      <li>Python & Java</li>
+                      <li>React & Node.js</li>
+                      <li>Prisma & MongoDB</li>
+                    </ul>
+                  </div>
+                  <div>
+                    <span className="metadata">AI & Data</span>
+                    <ul style={{ listStyle: 'none', color: 'var(--text-secondary)' }}>
+                      <li>TensorFlow & Scikit-Learn</li>
+                      <li>OpenCV & YOLO</li>
+                      <li>Pandas & NumPy</li>
+                    </ul>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </section>
+
+        {/* PROJECTS SECTION */}
+        <section id="projects" className="section">
+          <div className="container editorial-grid">
+            <div>
+              <h2 className="section-label">02 / Selected Work</h2>
+            </div>
+            <div>
+              {/* Project 1 */}
+              <div className="content-block fade-up">
+                <span className="metadata">2026 — SaaS Architecture</span>
+                <h3 style={{ fontSize: '2.5rem', fontFamily: 'Playfair Display, serif', marginBottom: '1rem' }}>Ledgerly B2B Platform</h3>
+                <p>
+                  A premium SaaS application designed for managing enterprise clients, generating automated PDF invoices, and processing online payments securely.
+                </p>
+                <ul style={{ marginTop: '1.5rem', listStyle: 'none', color: 'var(--text-secondary)' }}>
+                  <li style={{ marginBottom: '0.5rem' }}>— Engineered a scalable backend API using Node.js, Express, Prisma ORM, and MongoDB.</li>
+                  <li style={{ marginBottom: '0.5rem' }}>— Integrated Razorpay checkout, NodeMailer automation, and 2FA security protocols.</li>
+                </ul>
+                <div className="tags">
+                  <span className="tag">React</span>
+                  <span className="tag">Node.js</span>
+                  <span className="tag">MongoDB</span>
+                </div>
+                <a href="https://github.com/shravipansare/ledgerly" target="_blank" rel="noreferrer" className="link-arrow">
+                  View Repository <ExternalLink className="w-4 h-4" />
+                </a>
+              </div>
+
+              {/* Project 2 */}
+              <div className="content-block fade-up" style={{ marginTop: '6rem' }}>
+                <span className="metadata">2024–2025 — Computer Vision</span>
+                <h3 style={{ fontSize: '2.5rem', fontFamily: 'Playfair Display, serif', marginBottom: '1rem' }}>Intelligent Classroom Surveillance</h3>
+                <p>
+                  An AI-powered monitoring ecosystem designed for educational environments. It performs real-time face recognition, stress detection, and mobile-phone detection to automate attendance and behavior analysis.
+                </p>
+                <div className="tags">
+                  <span className="tag">Python</span>
+                  <span className="tag">OpenCV</span>
+                  <span className="tag">YOLO</span>
+                </div>
+                <a href="https://github.com/shravipansare/intelligent-classroom" target="_blank" rel="noreferrer" className="link-arrow">
+                  View Repository <ExternalLink className="w-4 h-4" />
+                </a>
+              </div>
+
+              {/* Project 3 */}
+              <div className="content-block fade-up" style={{ marginTop: '6rem' }}>
+                <span className="metadata">2026 — Backend API</span>
+                <h3 style={{ fontSize: '2.5rem', fontFamily: 'Playfair Display, serif', marginBottom: '1rem' }}>AI Document Analysis API</h3>
+                <p>
+                  A robust, asynchronous RESTful API architecture built to extract and analyze data from uploaded documents intelligently. It leverages Tesseract OCR for text extraction and Groq LLM for intelligent data processing.
+                </p>
+                <div className="tags">
+                  <span className="tag">FastAPI</span>
+                  <span className="tag">OCR</span>
+                  <span className="tag">Groq LLM</span>
+                </div>
+                <a href="https://github.com/shravipansare/doc-analysis-api" target="_blank" rel="noreferrer" className="link-arrow">
+                  View Repository <ExternalLink className="w-4 h-4" />
+                </a>
+              </div>
+            </div>
+          </div>
+        </section>
+
+        {/* EXPERIENCE SECTION */}
+        <section id="experience" className="section">
+          <div className="container editorial-grid">
+            <div>
+              <h2 className="section-label">03 / Experience</h2>
+            </div>
+            <div>
+              <ul className="exp-list fade-up">
+                <li className="exp-item">
+                  <div className="exp-header">
+                    <h3 className="exp-title">Product Engineer Intern <span className="exp-company">at MartechAdda</span></h3>
+                    <span className="metadata" style={{ margin: 0 }}>May 2026 — Present</span>
+                  </div>
+                  <p>Architected the "Ledgerly" invoicing SaaS platform. Conducted comprehensive UI/UX analysis and QA testing for MartechAdda V4, identifying critical usability improvements.</p>
+                </li>
+                
+                <li className="exp-item">
+                  <div className="exp-header">
+                    <h3 className="exp-title">Machine Learning Intern <span className="exp-company">at TechnoHacks EduTech</span></h3>
+                    <span className="metadata" style={{ margin: 0 }}>Dec 2023 — Jan 2024</span>
+                  </div>
+                  <p>Built and trained supervised ML models (Decision Tree, Random Forest, SVM) on real-world datasets for classification and regression tasks, including end-to-end data preprocessing.</p>
+                </li>
+
+                <li className="exp-item">
+                  <div className="exp-header">
+                    <h3 className="exp-title">Software Engineer <span className="exp-company">at OMVSAB IT SOLUTION</span></h3>
+                    <span className="metadata" style={{ margin: 0 }}>Jun 2023 — Aug 2023</span>
+                  </div>
+                  <p>Developed and debugged full-stack applications. Designed and managed scalable databases with SQL Server and MongoDB, improving overall performance and reliability.</p>
+                </li>
+              </ul>
+            </div>
+          </div>
+        </section>
+
+        {/* CONTACT SECTION */}
+        <section id="contact" className="section section-end">
+          <div className="container editorial-grid">
+            <div>
+              <h2 className="section-label">04 / Contact</h2>
+            </div>
+            <div>
+              <div className="fade-up">
+                <h2 style={{ fontFamily: 'Playfair Display, serif', fontSize: '3rem', marginBottom: '2rem' }}>Let's build something <br/><span className="italic text-[var(--accent-gold)]">extraordinary.</span></h2>
+                <p style={{ marginBottom: '3rem' }}>
+                  I'm currently open to new opportunities, machine learning projects, and exciting engineering roles. Whether you have a question or just want to say hi, my inbox is always open.
+                </p>
+                
+                <div style={{ display: 'flex', flexDirection: 'column', gap: '1rem' }}>
+                  <a href="mailto:shravanipansare80@gmail.com" className="link-arrow" style={{ fontSize: '1rem', marginTop: 0 }}>
+                    shravanipansare80@gmail.com <ArrowRight className="w-4 h-4" />
+                  </a>
+                  <a href="https://linkedin.com/in/shravani-pansare-46331830a" target="_blank" rel="noreferrer" className="link-arrow" style={{ fontSize: '1rem', marginTop: 0 }}>
+                    LinkedIn Profile <ArrowRight className="w-4 h-4" />
+                  </a>
+                  <a href="https://github.com/shravipansare" target="_blank" rel="noreferrer" className="link-arrow" style={{ fontSize: '1rem', marginTop: 0 }}>
+                    GitHub Portfolio <ArrowRight className="w-4 h-4" />
+                  </a>
+                </div>
+              </div>
+            </div>
+          </div>
+        </section>
+      </main>
+
+      <footer>
+        <div className="container">
+          <p className="footer-text">&copy; {new Date().getFullYear()} Shravani Pansare. Designed with purpose.</p>
+        </div>
+      </footer>
+    </>
   );
 }
 
