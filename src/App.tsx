@@ -86,7 +86,7 @@ function App() {
         <section id="projects" className="section container">
           <h2 className="fade-up" style={{ textAlign: 'center' }}>Selected Projects</h2>
           
-          <div className="grid-3" style={{ marginTop: '3rem' }}>
+          <div className="grid-2" style={{ marginTop: '3rem' }}>
             {/* Project 1 */}
             <div className="glass-panel fade-up">
               <h3>Ledgerly B2B Platform</h3>
@@ -118,9 +118,25 @@ function App() {
                 View Repo <ExternalLink className="w-3 h-3" />
               </a>
             </div>
-
+            
             {/* Project 3 */}
-            <div className="glass-panel fade-up delay-2">
+            <div className="glass-panel fade-up">
+              <h3>Visage Check Smart Attendance</h3>
+              <p style={{ marginTop: '1rem', fontSize: '1rem' }}>
+                A streamlined attendance management system utilizing AI face detection. It simplifies student roll calls through rapid facial processing and analytics.
+              </p>
+              <div className="tags">
+                <span className="tag">Face Recognition</span>
+                <span className="tag">Python</span>
+                <span className="tag">MediaPipe</span>
+              </div>
+              <a href="https://github.com/shravipansare/visage-check" target="_blank" rel="noreferrer" className="btn-primary" style={{ padding: '0.5rem 1rem', fontSize: '0.875rem' }}>
+                View Repo <ExternalLink className="w-3 h-3" />
+              </a>
+            </div>
+
+            {/* Project 4 */}
+            <div className="glass-panel fade-up delay-1">
               <h3>AI Document Analysis API</h3>
               <p style={{ marginTop: '1rem', fontSize: '1rem' }}>
                 A robust RESTful API built to extract and analyze data from uploaded documents intelligently. Leverages Tesseract OCR and Groq LLM.
