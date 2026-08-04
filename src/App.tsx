@@ -131,7 +131,7 @@ function App() {
 
             {/* Project 2 */}
             <div className="glass-panel fade-up delay-1">
-              <h3>Intelligent Surveillance</h3>
+              <h3 style={{ fontSize: '1.4rem' }}>Intelligent Surveillance</h3>
               <p style={{ marginTop: '1rem', fontSize: '1rem' }}>
                 An AI-powered monitoring ecosystem. It performs real-time face recognition, stress detection, and mobile-phone detection to automate attendance.
               </p>
