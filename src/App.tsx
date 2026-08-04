@@ -58,13 +58,13 @@ function App() {
 
         {/* ABOUT & SKILLS SECTION */}
         <section id="about" className="section container">
-          <div style={{ maxWidth: '800px', margin: '0 auto' }}>
-            <div className="glass-panel fade-up" style={{ textAlign: 'center' }}>
+          <div className="grid-2">
+            <div className="glass-panel fade-up">
               <h3>About Me</h3>
-              <p style={{ marginTop: '1.5rem', fontSize: '1.1rem' }}>
+              <p style={{ marginTop: '1rem' }}>
                 I am a proactive technology student currently pursuing my B.E. in AI & Data Science (CGPA 9.05). My passion lies in bridging the gap between sophisticated machine learning models and robust web applications.
               </p>
-              <p style={{ marginTop: '1rem', fontSize: '1.1rem' }}>
+              <p style={{ marginTop: '1rem' }}>
                 When I'm not training models or building APIs, I'm constantly learning new frameworks and pushing the boundaries of what's possible on the web.
               </p>
             </div>
@@ -178,7 +178,7 @@ function App() {
             </div>
 
             {/* Project 5 */}
-            <div className="glass-panel fade-up" style={{ gridColumn: '1 / -1' }}>
+            <div className="glass-panel fade-up">
               <h3>MartechAdda CRM</h3>
               <p style={{ marginTop: '1rem', fontSize: '1rem' }}>
                 A comprehensive customer relationship management platform. As part of the core engineering team, I architected and developed the complex Proposal generation module.
